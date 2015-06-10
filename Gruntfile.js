@@ -79,6 +79,9 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+        command: 'git add .',
+        command: 'git commit -m "automated azure testing"',
+        command: 'git push azure master'
       }
     },
   });
@@ -105,6 +108,7 @@ module.exports = function(grunt) {
     grunt.task.run([ 'watch' ]);
   });
 
+
   ////////////////////////////////////////////////////
   // Main grunt tasks
   ////////////////////////////////////////////////////
@@ -113,22 +117,17 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', [
-  ]);
+  grunt.registerTask('build', [])//, ['concat', 'uglify', 'cssmin']);
 
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
-      // add your production server task here
-      // grunt-env dev
+      grunt.task.run([ 'build' ]);
     } else {
       grunt.task.run([ 'server-dev' ]);
-      // grunt-env build
     }
   });
 
-  grunt.registerTask('deploy', [
-    // add your deploy tasks here
-  ]);
+  grunt.registerTask('deploy', ['shell:prodServer']);
 
 
 };
