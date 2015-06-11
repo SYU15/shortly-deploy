@@ -55,9 +55,11 @@ db.once('open', function (callback) {
 
 module.exports.usersSchema = new mongoose.Schema({
   username: String,
-  password: String,
+  password: { type: String, required: true, bcrypt: true },
   date: { type: Date, default: Date.now }
 });
+
+module.exports.usersSchema.plugin(require('mongoose-bcrypt'));
 
 module.exports.User = mongoose.model('User', module.exports.usersSchema);
 

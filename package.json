@@ -29,7 +29,8 @@
     "grunt-mocha-test": "^0.10.0",
     "mongoose": "~3.8.8",
     "bluebird": "1.0.8",
-    "mongodb": "~2.0.33"
+    "mongodb": "~2.0.33",
+    "mongoose-bcrypt": "~1.1.1"
   },
   "devDependencies": {
     "supertest": "^0.10.0"
