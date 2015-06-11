@@ -79,11 +79,12 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
-        command: 'git add .',
-        command: 'git commit -m "automated azure testing"',
-        command: 'git push azure master'
+        options: { stdout: true },
+        command: ['git add .',
+         'git commit -m "automated azure testing"',
+         'git push azure master'].join('&&')
       }
-    },
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -119,13 +120,13 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['concat', 'uglify', 'cssmin']);
 
-  grunt.registerTask('upload', function(n) {
-    if(grunt.option('prod')) {
-      grunt.task.run([ 'build' ]);
-    } else {
-      grunt.task.run([ 'server-dev' ]);
-    }
-  });
+  // grunt.registerTask('upload', function(n) {
+  //   if(grunt.option('prod')) {
+  //     grunt.task.run([ 'build' ]);
+  //   } else {
+  //     grunt.task.run([ 'server-dev' ]);
+  //   }
+  // });
 
   grunt.registerTask('deploy', ['shell:prodServer']);
 
