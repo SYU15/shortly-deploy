@@ -23,7 +23,7 @@ module.exports = function(grunt) {
         separator: ';'
       },
       dist: {
-        src: ['public/client/**/*.js', 'public/lib/**/*.js'],
+        src: ['public/lib/underscore.js', 'public/lib/handlebars.js', 'public/lib/jquery.js', 'public/lib/backbone.js', 'public/client/**/*.js'],
         dest: 'public/dist/built.js'
       }
     },
@@ -117,7 +117,7 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', [])//, ['concat', 'uglify', 'cssmin']);
+  grunt.registerTask('build', ['concat', 'uglify', 'cssmin']);
 
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
