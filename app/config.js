@@ -53,10 +53,23 @@ db.once('open', function (callback) {
   console.log('mongoose running!')
 });
 
-var users = new Schema({
-  username:  String,
+module.exports.usersSchema = new mongoose.Schema({
+  username: String,
   password: String,
   date: { type: Date, default: Date.now }
 });
 
-module.exports = db;
+module.exports.User = mongoose.model('User', module.exports.usersSchema);
+
+
+module.exports.linksSchema = new mongoose.Schema({
+  url: String,
+  base_url: String,
+  code: String,
+  title: String,
+  visits: Number,
+  date: { type: Date, default: Date.now }
+});
+
+module.exports.Link = mongoose.model('Link', module.exports.linksSchema);
+// module.exports = db;
