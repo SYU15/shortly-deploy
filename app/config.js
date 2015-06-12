@@ -46,32 +46,13 @@ var mongodb = require('mongodb');
 var mongoose = require('mongoose');
 var path = require('path');
 
-mongoose.connect('localhost:27017');
+var mongoURI = process.env.CUSTOMCONNSTR_MONGOLAB_URI || 'localhost:27017'
+
+mongoose.connect(mongoURI);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
   console.log('mongoose running!')
 });
 
-module.exports.usersSchema = new mongoose.Schema({
-  username: String,
-  password: { type: String, required: true, bcrypt: true },
-  date: { type: Date, default: Date.now }
-});
-
-module.exports.usersSchema.plugin(require('mongoose-bcrypt'));
-
-module.exports.User = mongoose.model('User', module.exports.usersSchema);
-
-
-module.exports.linksSchema = new mongoose.Schema({
-  url: String,
-  base_url: String,
-  code: String,
-  title: String,
-  visits: Number,
-  date: { type: Date, default: Date.now }
-});
-
-module.exports.Link = mongoose.model('Link', module.exports.linksSchema);
-// module.exports = db;
+module.exports = db;
